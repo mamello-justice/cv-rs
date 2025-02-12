@@ -6,7 +6,7 @@
 
 use image::{GrayImage, Luma};
 
-use convolution::{Kernel, Padding};
+use convolution::{Kernel, PaddingType};
 
 use crate::core::EdgeDetection;
 
@@ -21,10 +21,10 @@ impl RobertsCross {
 impl EdgeDetection for RobertsCross {
     fn detect_edge(&self, image: &GrayImage) -> GrayImage {
         let mut gx_kernel = Kernel::new(2, 2, vec![1, 0, 0, -1]);
-        gx_kernel.padding = Padding::Zero;
+        gx_kernel.padding = PaddingType::Zero;
 
         let mut gy_kernel = Kernel::new(2, 2, vec![0, 1, -1, 0]);
-        gy_kernel.padding = Padding::Zero;
+        gy_kernel.padding = PaddingType::Zero;
 
         let gx = gx_kernel.convolve(image);
         let gy = gy_kernel.convolve(image);
